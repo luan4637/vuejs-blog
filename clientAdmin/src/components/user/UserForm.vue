@@ -6,8 +6,7 @@
         setup() {
             const userStore = useUserStore();
             const userObject = {
-                firstName: '',
-                lastName: '',
+                name: '',
                 email: '',
                 password: ''
             };
@@ -41,15 +40,9 @@
 <template>
     <form>
         <div class="row mb-3">
-            <label class="col-2 col-form-label">First name</label>
+            <label class="col-2 col-form-label">Full name</label>
             <p class="col-10">
-                <input v-model="user.firstName" class="form-control" />
-            </p>
-        </div>
-        <div class="row mb-3">
-            <label class="col-2 col-form-label">Last name</label>
-            <p class="col-10">
-                <input v-model="user.lastName" class="form-control" />
+                <input v-model="user.name" class="form-control" />
             </p>
         </div>
         <div class="row mb-3">

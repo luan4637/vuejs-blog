@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { ref } from "vue";
-import { API_URL } from "@/config";
+import { BaseClient } from './BaseClient';
 import router from "../router";
 
 export const useUserStore = defineStore('userStore', {
@@ -29,10 +28,10 @@ export const useUserStore = defineStore('userStore', {
                 }
             }
 
-            let URL = API_URL + "/user?page=" + (page ?? this.filterInitial.page) + "&limit=" + (limit ?? this.filterInitial.limit) + queryFilter;
+            let URL = "/user?page=" + (page ?? this.filterInitial.page) + "&limit=" + (limit ?? this.filterInitial.limit) + queryFilter;
             const _this = this;
             this.loading = true;
-            axios.get(URL).then(function(response) {
+            BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.users = response.data.data;
                 _this.total = response.data.total;
@@ -40,21 +39,31 @@ export const useUserStore = defineStore('userStore', {
             });
         },
         getUser(id) {
-            const URL = API_URL + "/user/" + id;
+            const URL = "/user/" + id;
             const _this = this;
             this.loading = true;
             _this.user = {};
-            axios.get(URL).then(function(response) {
+            BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.user = response.data;
                 _this.user.password = '';
             });
         },
         submitUser(userData) {
-            let URL = API_URL + '/user/save';
-            axios.post(URL, userData).then(function(response) {
+            let URL = '/user/save';
+            BaseClient.post(URL, userData).then(function(response) {
                 router.push({ name: 'user' })
             });
         },
+        login(userData) {
+            let URL = '/login';
+            BaseClient.post(URL, userData).then(function(response) {
+                const user = response.data;
+                localStorage.setItem('AuthorizationKey', user.token);
+                if (user.token !== undefined) {
+                    router.push({ name: 'home' })
+                }
+            });
+        }
     },
 });

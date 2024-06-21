@@ -107,9 +107,9 @@
                                 <li class="list-group-item mb-1">{{ category.name }}</li>
                             </ul>
                         </td>
-                        <td class="align-middle">{{ post.published }}</td>
+                        <td class="align-middle">{{ post.published ? 'TRUE' : 'FALSE' }}</td>
                         <td class="align-middle">{{ post.position }}</td>
-                        <td class="align-middle"><span v-if="post.user" class="text-nowrap">{{ post.user.firstName }} {{ post.user.lastName }}</span></td>
+                        <td class="align-middle"><span v-if="post.user" class="text-nowrap">{{ post.user.name }}</span></td>
                         <td class="align-middle">{{ post.createdAt }}</td>
                         <td>
                             <RouterLink :to="{ name: 'postEdit', params: { id: post.id }}" class="btn btn-primary">Edit</RouterLink>

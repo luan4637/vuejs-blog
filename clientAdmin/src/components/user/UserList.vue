@@ -50,12 +50,8 @@
         <div class="table-users-filter">
             <form class="row" autocomplete="off">
                 <div class="form-group col-3">
-                    <label for="firstName">First Name</label>
-                    <input id="firstName" type="text" placeholder="First Name" class="form-control" v-model="formFilter.filter.firstName" />
-                </div>
-                <div class="form-group col-3">
-                    <label for="lastName">Last Name</label>
-                    <input id="lastName" type="text" placeholder="Last Name" class="form-control" v-model="formFilter.filter.lastName" />
+                    <label for="name">Name</label>
+                    <input id="name" type="text" placeholder="Name" class="form-control" v-model="formFilter.filter.name" />
                 </div>
                 <div class="form-group col-4">
                     <label for="email">Email</label>
@@ -77,8 +73,7 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-nowrap">First Name</th>
-                        <th class="text-nowrap">Last Name</th>
+                        <th class="text-nowrap">Name</th>
                         <th class="text-nowrap">Email</th>
                         <th class="text-nowrap">Created Date</th>
                         <th>Actions</th>
@@ -86,8 +81,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="user in users">
-                        <td class="align-middle">{{ user.firstName }}</td>
-                        <td class="align-middle">{{ user.lastName }}</td>
+                        <td class="align-middle">{{ user.name }}</td>
                         <td class="align-middle">{{ user.email }}</td>
                         <td class="align-middle">{{ user.createdAt }}</td>
                         <td>

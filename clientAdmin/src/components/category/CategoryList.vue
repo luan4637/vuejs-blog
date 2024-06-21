@@ -84,7 +84,7 @@
                     <tr v-for="category in categories">
                         <td class="align-middle">{{ category.name }}</td>
                         <td class="align-middle">{{ category.description }}</td>
-                        <td class="align-middle">{{ category.showInNav }}</td>
+                        <td class="align-middle">{{ category.showInNav ? 'TRUE' : 'FALSE' }}</td>
                         <td class="align-middle">{{ category.createdAt }}</td>
                         <td>
                             <RouterLink :to="{ name: 'categoryEdit', params: { id: category.id }}" class="btn btn-primary">Edit</RouterLink>
