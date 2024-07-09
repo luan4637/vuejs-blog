@@ -44,7 +44,7 @@ export const useCategoryStore = defineStore('categoryStore', {
             _this.category = {};
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
-                _this.category = response.data;
+                _this.category = response.data.data;
             });
         },
         submitCategory(categoryData) {

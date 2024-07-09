@@ -2,6 +2,7 @@
     import { mapState } from 'pinia'
     import { ref } from 'vue'
     import { IMAGE_URL } from '@/config'
+    import { formatDateMixin } from '@/mixins'
     import Pagination from '../partials/Pagination.vue'
     import { usePostStore } from '../../stores/PostStore'
 
@@ -18,6 +19,7 @@
                 formFilter
             };
         },
+        mixins: [ formatDateMixin ],
         components: {
             Pagination
         },
@@ -99,7 +101,7 @@
                 <tbody>
                     <tr v-for="post in posts">
                         <td>
-                            <img v-if="post.picture" :src="IMAGE_URL + post.picture" class="w-100" />
+                            <img v-if="post.picture" :src="IMAGE_URL + post.picture" class="w-100 post-picture" />
                         </td>
                         <td>{{ post.title }}</td>
                         <td class="align-middle">
@@ -110,7 +112,7 @@
                         <td class="align-middle">{{ post.published ? 'TRUE' : 'FALSE' }}</td>
                         <td class="align-middle">{{ post.position }}</td>
                         <td class="align-middle"><span v-if="post.user" class="text-nowrap">{{ post.user.name }}</span></td>
-                        <td class="align-middle">{{ post.createdAt }}</td>
+                        <td class="align-middle text-nowrap">{{ formatDate(post.createdAt) }}</td>
                         <td>
                             <RouterLink :to="{ name: 'postEdit', params: { id: post.id }}" class="btn btn-primary">Edit</RouterLink>
                         </td>

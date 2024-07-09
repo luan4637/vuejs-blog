@@ -3,6 +3,7 @@
     import { ref } from 'vue'
     import Pagination from '../partials/Pagination.vue'
     import { useUserStore } from '../../stores/UserStore'
+    import { formatDateMixin } from '@/mixins'
 
     export default {
         setup() {
@@ -16,6 +17,7 @@
                 formFilter
             };
         },
+        mixins: [ formatDateMixin ],
         components: {
             Pagination
         },
@@ -83,7 +85,7 @@
                     <tr v-for="user in users">
                         <td class="align-middle">{{ user.name }}</td>
                         <td class="align-middle">{{ user.email }}</td>
-                        <td class="align-middle">{{ user.createdAt }}</td>
+                        <td class="align-middle">{{ formatDate(user.created_at) }}</td>
                         <td>
                             <RouterLink :to="{ name: 'userEdit', params: { id: user.id }}" class="btn btn-primary">Edit</RouterLink>
                         </td>

@@ -45,7 +45,7 @@ export const useUserStore = defineStore('userStore', {
             _this.user = {};
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
-                _this.user = response.data;
+                _this.user = response.data.data;
                 _this.user.password = '';
             });
         },
@@ -58,7 +58,7 @@ export const useUserStore = defineStore('userStore', {
         login(userData) {
             let URL = '/login';
             BaseClient.post(URL, userData).then(function(response) {
-                const user = response.data;
+                const user = response.data.data;
                 localStorage.setItem('AuthorizationKey', user.token);
                 if (user.token !== undefined) {
                     router.push({ name: 'home' })
