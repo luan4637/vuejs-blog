@@ -13,3 +13,7 @@ npm run dev
 cd [root]/clientAdmin
 npm install
 npm run dev
+
+# screenshoot
+![screenshot](client.png)
+![screenshot](clientAdmin.png)
