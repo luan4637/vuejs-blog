@@ -15,8 +15,8 @@
             ...mapState(useCategoryStore, ['loading', 'categories']),
         },
         methods: {
-            getCategories(skip, limit) {
-                this.categoryStore.getCategories(skip, limit);
+            getCategories(page, limit) {
+                this.categoryStore.getCategories(page, limit);
             }
         },
         created() {

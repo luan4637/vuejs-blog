@@ -61,7 +61,7 @@ export const usePostStore = defineStore('postStore', {
             _this.post = {};
             axios.get(URL).then(function(response) {
                 _this.loading = false;
-                _this.post = response.data;
+                _this.post = response.data.data;
             });
         },
     },

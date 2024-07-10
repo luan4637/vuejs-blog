@@ -86,7 +86,7 @@
                         <td class="align-middle">{{ user.name }}</td>
                         <td class="align-middle">{{ user.email }}</td>
                         <td class="align-middle">{{ formatDate(user.created_at) }}</td>
-                        <td>
+                        <td class="text-center">
                             <RouterLink :to="{ name: 'userEdit', params: { id: user.id }}" class="btn btn-primary">Edit</RouterLink>
                         </td>
                     </tr>

@@ -6,11 +6,11 @@
     import PostItem from './partials/PostItem.vue'
     import { usePostStore } from '../../stores/PostStore'
     
-
     export default {
         setup() {
             const postStore = usePostStore();
             const currentPage = ref(1);
+            const pageLimit = ref(12);
             const route = useRoute();
 
             watch(
@@ -22,19 +22,25 @@
             
             return {
                 postStore,
-                currentPage
+                currentPage,
+                pageLimit
             };
+        },
+        props: {
+            layout: String
         },
         components: {
             PostItem,
             Pagination
         },
         computed: {
-            ...mapState(usePostStore, ['loading', 'posts', 'total', 'page', 'limit']),
+            ...mapState(usePostStore, ['loading', 'posts', 'total']),
         },
         methods: {
             handleClickPagination(pageNumber) {
-                this.getPosts(pageNumber, 10);
+                const category = this.$route.params.category;
+                const searchQuery = this.$route.params.searchQuery;
+                this.getPosts(category, searchQuery, pageNumber, this.pageLimit);
                 this.currentPage = pageNumber;
             },
             getPosts(category, searchQuery, pageNumber, limit) {
@@ -44,23 +50,23 @@
         created() {
             const category = this.$route.params.category;
             const searchQuery = this.$route.params.searchQuery;
-            this.getPosts(category, searchQuery);
+            this.getPosts(category, searchQuery, 1, this.pageLimit);
         },
     }
 </script>
 
 <template>
     <div class="posts-list-wrapper">
-        <ul class="post-list">
+        <ul :class="'post-list ' + layout">
             <li v-for="post in posts">
                 <PostItem :post=post />
             </li>
         </ul>
         <Pagination
             :currentPage="currentPage"
-            :perPage="10"
+            :perPage="pageLimit"
             :total="total"
-            :totalPages="Math.ceil(total / limit)"
+            :totalPages="Math.ceil(total / pageLimit)"
             :maxVisibleButtons="5"
             @pagechanged="this.handleClickPagination" />
     </div>

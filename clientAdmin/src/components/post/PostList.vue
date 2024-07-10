@@ -31,6 +31,11 @@
                 this.currentPage = pageNumber;
                 this.getPosts(this.formFilter.filter, pageNumber, this.formFilter.limit);
             },
+            handleClickDelete(id) {
+                if (confirm('Are you sure you want to delete?')) {
+                    this.postStore.deletePost(id);
+                }
+            },
             handleFilter() {
                 this.getPosts(this.formFilter.filter, this.formFilter.page, this.formFilter.limit);
             },
@@ -113,8 +118,10 @@
                         <td class="align-middle">{{ post.position }}</td>
                         <td class="align-middle"><span v-if="post.user" class="text-nowrap">{{ post.user.name }}</span></td>
                         <td class="align-middle text-nowrap">{{ formatDate(post.createdAt) }}</td>
-                        <td>
+                        <td class="text-center">
                             <RouterLink :to="{ name: 'postEdit', params: { id: post.id }}" class="btn btn-primary">Edit</RouterLink>
+                            <button type="button" class="mt-2 btn btn-danger"
+                                @click="this.handleClickDelete(post.id)">Delete</button>
                         </td>
                     </tr>
                 </tbody>

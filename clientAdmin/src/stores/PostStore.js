@@ -16,6 +16,7 @@ export const usePostStore = defineStore('postStore', {
             page: 1,
             limit: 16,
         },
+        storeFormFilter: {},
         posts: ref([]),
         post: ref({}),
     }),
@@ -36,6 +37,7 @@ export const usePostStore = defineStore('postStore', {
                 _this.posts = response.data.data;
                 _this.total = response.data.total;
                 _this.page = 0;
+                _this.storeFormFilter = filter;
             });
         },
         getPost(id) {
@@ -46,6 +48,17 @@ export const usePostStore = defineStore('postStore', {
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.post = response.data.data;
+            });
+        },
+        deletePost(id) {
+            const URL = "/post/delete/" + id;
+            const _this = this;
+            this.loading = true;
+            _this.post = {};
+            BaseClient.get(URL).then(function(response) {
+                _this.loading = false;
+                _this.post = response.data.data;
+                _this.getPosts(_this.storeFormFilter);
             });
         },
         submitPost(postData, file) {

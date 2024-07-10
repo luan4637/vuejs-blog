@@ -1,10 +1,20 @@
 <script>
+    import { watch } from 'vue'
+    import { useRoute } from 'vue-router'
     import { mapState } from 'pinia'
     import { usePostStore } from '../../stores/PostStore'
 
     export default {
         setup() {
             const postStore = usePostStore();
+            const route = useRoute();
+
+            watch(
+                () => [route.params.id],
+                async newValue => {
+                    postStore.getPost(newValue[0]);
+                }
+            );
 
             return {
                 postStore

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="latest-posts-page">
-        <ListPost />
+    <div class="posts-page">
+        <ListPost layout="three-cols" />
     </div>
 </template>

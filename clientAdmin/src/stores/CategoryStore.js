@@ -15,6 +15,7 @@ export const useCategoryStore = defineStore('categoryStore', {
             page: 1,
             limit: 16,
         },
+        storeFormFilter: {},
         categories: ref([]),
         category: ref({}),
     }),
@@ -35,6 +36,7 @@ export const useCategoryStore = defineStore('categoryStore', {
                 _this.categories = response.data.data;
                 _this.total = response.data.total;
                 _this.page = 0;
+                _this.storeFormFilter = filter;
             });
         },
         getCategory(id) {
@@ -45,6 +47,17 @@ export const useCategoryStore = defineStore('categoryStore', {
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.category = response.data.data;
+            });
+        },
+        deleteCategory(id) {
+            const URL = "/category/delete/" + id;
+            const _this = this;
+            this.loading = true;
+            _this.category = {};
+            BaseClient.get(URL).then(function(response) {
+                _this.loading = false;
+                _this.category = response.data.data;
+                _this.getCategories(_this.storeFormFilter);
             });
         },
         submitCategory(categoryData) {

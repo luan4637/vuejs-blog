@@ -3,6 +3,7 @@
     import { ref } from 'vue'
     import Pagination from '../partials/Pagination.vue'
     import { useCategoryStore } from '../../stores/CategoryStore'
+    import { formatDateMixin } from '@/mixins'
 
     export default {
         setup() {
@@ -16,6 +17,7 @@
                 formFilter
             };
         },
+        mixins: [ formatDateMixin ],
         components: {
             Pagination
         },
@@ -26,6 +28,11 @@
             handleClickPagination(pageNumber) {
                 this.currentPage = pageNumber;
                 this.getCategories(this.formFilter.filter, pageNumber, this.formFilter.limit);
+            },
+            handleClickDelete(id) {
+                if (confirm('Are you sure you want to delete?')) {
+                    this.categoryStore.deleteCategory(id);
+                }
             },
             handleFilter() {
                 this.getCategories(this.formFilter.filter, this.formFilter.page, this.formFilter.limit);
@@ -85,9 +92,12 @@
                         <td class="align-middle">{{ category.name }}</td>
                         <td class="align-middle">{{ category.description }}</td>
                         <td class="align-middle">{{ category.showInNav ? 'TRUE' : 'FALSE' }}</td>
-                        <td class="align-middle">{{ category.createdAt }}</td>
-                        <td>
-                            <RouterLink :to="{ name: 'categoryEdit', params: { id: category.id }}" class="btn btn-primary">Edit</RouterLink>
+                        <td class="align-middle text-nowrap">{{ formatDate(category.createdAt) }}</td>
+                        <td class="text-center">
+                            <RouterLink :to="{ name: 'categoryEdit', params: { id: category.id }}"
+                                class="btn btn-primary">Edit</RouterLink>
+                            <button type="button" class="mt-2 btn btn-danger"
+                                @click="this.handleClickDelete(category.id)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
