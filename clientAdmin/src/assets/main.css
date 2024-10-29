@@ -26,6 +26,21 @@ ul {
 .header {
     margin-bottom: 1em;
 }
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-inner .logo {
+
+}
+.header-btns {
+    
+}
+.header-btns li {
+    display: inline-block;
+    margin-left: 1em;
+}
 
 .footer {
     margin-top: 1em;

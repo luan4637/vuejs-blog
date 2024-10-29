@@ -59,9 +59,19 @@ export const useUserStore = defineStore('userStore', {
             let URL = '/login';
             BaseClient.post(URL, userData).then(function(response) {
                 const user = response.data.data;
-                localStorage.setItem('AuthorizationKey', user.token);
+                localStorage.setItem('user', JSON.stringify(user));
                 if (user.token !== undefined) {
                     router.push({ name: 'home' })
+                }
+            });
+        },
+        logout() {
+            let URL = '/logout';
+            BaseClient.get(URL, {}).then(function(response) {
+                const result = response.data.data;
+                if (result == true) {
+                    localStorage.removeItem('user');
+                    router.push({ name: 'login' })
                 }
             });
         }
