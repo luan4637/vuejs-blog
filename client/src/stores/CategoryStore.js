@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { ref } from "vue";
+import { BaseClient } from './BaseClient';
 import { API_URL } from "@/config";
 
 export const useCategoryStore = defineStore('categoryStore', {
@@ -17,7 +18,7 @@ export const useCategoryStore = defineStore('categoryStore', {
             let URL = API_URL + "/category?page=" + (page ?? 1) + "&limit=" + (limit ?? 10) + "&showInNav=1";
             const _this = this;
             this.loading = true;
-            axios.get(URL).then(function(response) {
+            BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.categories = response.data.data;
                 _this.total = response.data.total;
@@ -29,7 +30,7 @@ export const useCategoryStore = defineStore('categoryStore', {
             const _this = this;
             this.loading = true;
             _this.category = {};
-            axios.get(URL).then(function(response) {
+            BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.category = response.data;
             });
