@@ -77,7 +77,8 @@
                     <tr>
                         <th class="text-nowrap">Name</th>
                         <th class="text-nowrap">Email</th>
-                        <th class="text-nowrap">Created Date</th>
+                        <th class="text-nowrap" style="width: 10em;">Roles</th>
+                        <th class="text-nowrap" style="width: 10em;">Created Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -85,6 +86,11 @@
                     <tr v-for="user in users">
                         <td class="align-middle">{{ user.name }}</td>
                         <td class="align-middle">{{ user.email }}</td>
+                        <td class="align-middle">
+                            <ul v-for="role in user.roles" class="list-group">
+                                <li class="list-group-item mb-1">{{ role }}</li>
+                            </ul>
+                        </td>
                         <td class="align-middle">{{ formatDate(user.created_at) }}</td>
                         <td class="text-center">
                             <RouterLink :to="{ name: 'userEdit', params: { id: user.id }}" class="btn btn-primary">Edit</RouterLink>

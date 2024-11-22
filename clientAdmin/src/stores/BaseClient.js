@@ -25,6 +25,8 @@ BaseClient.interceptors.response.use(response => {
 }, error => {
     if (error.response.status === 401) {
         window.location.href = '/#/login';
+    } else if (error.response.status === 403) {
+        alert(error.response.data.message);
     }
 
     return error;

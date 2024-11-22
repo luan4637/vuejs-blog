@@ -41,7 +41,7 @@
             <div class="row mb-3">
                 <label class="col-2 col-form-label">Password</label>
                 <p class="col-10">
-                    <input v-model="user.password" class="form-control" />
+                    <input v-model="user.password" class="form-control" type="password" />
                 </p>
             </div>
             <div class="btn-group">
