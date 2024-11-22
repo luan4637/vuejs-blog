@@ -9,12 +9,17 @@ export const useUserStore = defineStore('userStore', {
         total: 0,
         filterInitial: {
             filter: {
-                firstName: '',
-                lastName: '',
+                name: '',
                 email: ''
             },
             page: 1,
             limit: 16,
+        },
+        userObjInit: {
+            name: '',
+            email: '',
+            password: '',
+            roles: []
         },
         users: ref([]),
         user: ref({}),
@@ -38,11 +43,14 @@ export const useUserStore = defineStore('userStore', {
                 _this.page = 0;
             });
         },
+        initUser() {
+            this.user = this.userObjInit;
+        },
         getUser(id) {
             const URL = "/user/" + id;
             const _this = this;
             this.loading = true;
-            _this.user = {};
+            _this.user = _this.userObjInit;
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.user = response.data.data;

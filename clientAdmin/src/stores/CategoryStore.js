@@ -15,6 +15,10 @@ export const useCategoryStore = defineStore('categoryStore', {
             page: 1,
             limit: 16,
         },
+        categoryObjInit: {
+            name: '',
+            description: ''
+        },
         storeFormFilter: {},
         categories: ref([]),
         category: ref({}),
@@ -39,11 +43,14 @@ export const useCategoryStore = defineStore('categoryStore', {
                 _this.storeFormFilter = filter;
             });
         },
+        initCategory() {
+            this.category = this.categoryObjInit;
+        },
         getCategory(id) {
             const URL = "/category/" + id;
             const _this = this;
             this.loading = true;
-            _this.category = {};
+            _this.category = _this.categoryObjInit;
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.category = response.data.data;

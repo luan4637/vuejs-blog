@@ -5,21 +5,18 @@
     export default {
         setup() {
             const userStore = useUserStore();
-            const userObject = {
-                name: '',
-                email: '',
-                password: ''
-            };
 
             return {
                 userStore,
-                userObject
             };
         },
         computed: {
             ...mapState(useUserStore, ['loading', 'user'])
         },
         methods: {
+            initUser() {
+                this.userStore.initUser();
+            },
             getUser(id) {
                 this.userStore.getUser(id);
             },
@@ -31,7 +28,7 @@
             if (this.$route.params.id) {
                 this.getUser(this.$route.params.id);
             } else {
-                this.user = Object.assign(this.user, this.userObject);
+                this.initUser();
             }
         }
     }
@@ -55,6 +52,15 @@
             <label class="col-2 col-form-label">Password</label>
             <p class="col-10">
                 <input v-model="user.password" class="form-control" />
+            </p>
+        </div>
+        <div class="row mb-3">
+            <label class="col-2 col-form-label">Roles</label>
+            <p class="col-10">
+                <select v-model="user.roles" class="form-select" multiple>
+                    <option value="ROLE_USER">ROLE_USER</option>
+                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                </select>
             </p>
         </div>
         <div class="btn-group">

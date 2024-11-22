@@ -5,20 +5,18 @@
     export default {
         setup() {
             const categoryStore = useCategoryStore();
-            const categoryObject = {
-                name: '',
-                description: ''
-            };
 
             return {
                 categoryStore,
-                categoryObject
             };
         },
         computed: {
             ...mapState(useCategoryStore, ['loading', 'category'])
         },
         methods: {
+            initCategory() {
+                this.categoryStore.initCategory();
+            },
             getCategory(id) {
                 this.categoryStore.getCategory(id);
             },
@@ -30,7 +28,7 @@
             if (this.$route.params.id) {
                 this.getCategory(this.$route.params.id);
             } else {
-                this.category = Object.assign(this.category, this.categoryObject);
+                this.initCategory();
             }
         }
     }

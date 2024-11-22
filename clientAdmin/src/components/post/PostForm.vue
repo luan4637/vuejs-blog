@@ -9,22 +9,12 @@
         setup() {
             const postStore = usePostStore();
             const categoryStore = useCategoryStore();
-            const postObject = {
-                title: '',
-                picture: '',
-                content: '',
-                position: '',
-                published: true,
-                user: {},
-                categories: []
-            };
             const uploadPicture = ref(null);
 
             return {
                 IMAGE_URL,
                 postStore,
                 categoryStore,
-                postObject,
                 uploadPicture
             };
         },
@@ -33,6 +23,9 @@
             ...mapState(useCategoryStore, ['categories']),
         },
         methods: {
+            initPost() {
+                this.postStore.initPost();
+            },
             getPost(id) {
                 this.postStore.getPost(id);
             },
@@ -49,7 +42,7 @@
             if (this.$route.params.id) {
                 this.getPost(this.$route.params.id);
             } else {
-                this.post = Object.assign(this.post, this.postObject);
+                this.initPost();
             }
             this.categoryStore.getCategories({}, 1, Number.MAX_SAFE_INTEGER);
         }
@@ -96,7 +89,10 @@
             <p class="col-10">
                 <select v-model="post.categories" class="form-select" multiple style="height: 15em">
                     <option value="">--Choose Category--</option>
-                    <option v-for="category in categories" :value="category">{{ category.name }}</option>
+                    <option
+                        v-for="category in categories"
+                        :value="category"
+                    >{{ category.name }}</option>
                 </select>
             </p>
         </div>
@@ -109,7 +105,7 @@
         <div class="row mb-3">
             <label class="col-2 col-form-label">Created by</label>
             <p class="col-10">
-                <span v-if="post.user">{{ post.user.firstName }} {{ post.user.lastName }}</span>
+                <span v-if="post.user">{{ post.user.name }}</span>
             </p>
         </div>
         <div class="btn-group">

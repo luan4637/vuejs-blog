@@ -17,6 +17,15 @@ export const usePostStore = defineStore('postStore', {
             limit: 16,
         },
         storeFormFilter: {},
+        postObjInit: {
+            title: '',
+            picture: '',
+            content: '',
+            position: '',
+            published: true,
+            user: {},
+            categories: []
+        },
         posts: ref([]),
         post: ref({}),
     }),
@@ -40,11 +49,14 @@ export const usePostStore = defineStore('postStore', {
                 _this.storeFormFilter = filter;
             });
         },
+        initPost() {
+            this.post = this.postObjInit;
+        },
         getPost(id) {
             const URL = "/post/" + id;
             const _this = this;
             this.loading = true;
-            _this.post = {};
+            _this.post = _this.postObjInit;
             BaseClient.get(URL).then(function(response) {
                 _this.loading = false;
                 _this.post = response.data.data;
