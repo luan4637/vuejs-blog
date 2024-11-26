@@ -3,7 +3,20 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - 81:80
+      - 80:80
     volumes:
-      - ./clientAdmin/dist:/usr/share/nginx/html
+      # - ./client/dist:/usr/share/nginx/html/client
+      # - ./clientAdmin/dist:/usr/share/nginx/html/admin
+      - ./:/usr/share
       - ./server-conf/nginx.conf:/etc/nginx/conf.d/default.conf
+    # entrypoint:
+    #   - sh
+    #   - "-c"
+    #   - |
+    #     apk add nodejs npm
+    #     cd /usr/share/client
+    #     npm install
+    #     npm run build
+    #     cd /usr/share/clientAdmin
+    #     npm install
+    #     npm run build

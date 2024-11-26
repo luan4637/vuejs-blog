@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "watch": "vite build --watch --outDir ../dist/public",
+    "watch": "vite build --watch --emptyOutDir --outDir ../dist/public",
     "preview": "vite preview"
   },
   "dependencies": {

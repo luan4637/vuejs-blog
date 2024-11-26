@@ -7,7 +7,8 @@ export const BaseClient = axios.create({
         'Accept': 'application/json'
     }
 });
-  
+
+/*
 BaseClient.interceptors.request.use(async (config) => {
     const token = localStorage.getItem('token');
     if (token !== null && token !== 'requesting') {
@@ -27,3 +28,4 @@ BaseClient.interceptors.request.use(async (config) => {
 
     return config;
 });
+*/
